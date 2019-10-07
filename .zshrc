@@ -10,15 +10,16 @@ source $ZPLUG_HOME/init.zsh
 ## anyenv setup command
 ################################################################################
 
-if [ -d $HOME/.anyenv ] ; then
+#if [ -d $HOME/.anyenv ] ; then
     export PATH="$HOME/.anyenv/bin:$PATH"
     eval "$(anyenv init -)"
-    # tmux対応
-    for D in `\ls $HOME/.anyenv/envs`
-    do
-        export PATH="$HOME/.anyenv/envs/$D/shims:$PATH"
-    done
-fi
+#fi
+
+################################################################################
+## setup starship
+################################################################################
+
+eval "$(starship init zsh)"
 
 ################################################################################
 ## zplug plugin 
@@ -30,7 +31,7 @@ source ~/.zplug/init.zsh
 # set plugins here
 
 zplug "mafredri/zsh-async", from:github
-zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
+# zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
 zplug "supercrabtree/k"
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-syntax-highlighting", defer:3
@@ -46,9 +47,9 @@ zplug "mollifier/anyframe"
 zplug "mollifier/cd-gitroot"
 
 # install plugins
-    if ! zplug check --verbose; then
-        printf 'Install? [y/N]: '
-        if read -q; then
+if ! zplug check --verbose; then
+    printf 'Install? [y/N]: '
+    if read -q; then
         echo; zplug install
     fi
 fi
@@ -138,7 +139,28 @@ alias ll='k -a'
 alias ls='k -a'
 
 ################################################################################
+## Settings for Hyper
+################################################################################
+precmd() {
+   pwd=$(pwd)
+   cwd=${pwd##*/}
+   print -Pn "\e]0;$cwd\a"
+}
+
+#preexec() {
+#   if overridden; then return; fi
+#   printf "\033]0;%s\a" "${1%% *} | $cwd"
+#}
+
+################################################################################
 ## Screenfetch
 ################################################################################
 
 screenfetch -E
+
+###-tns-completion-start-###
+if [ -f /Users/nori.k/.tnsrc ]; then 
+    source /Users/nori.k/.tnsrc 
+fi
+###-tns-completion-end-###
+

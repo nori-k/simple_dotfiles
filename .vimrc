@@ -24,6 +24,7 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable
 set background=dark
+"set tgc
 
 call plug#begin('~/.vim/plugged')
     Plug 'https://github.com/altercation/vim-colors-solarized.git'
@@ -117,7 +118,7 @@ set whichwrap=b,s,h,l,<,>,[,],~
 set mouse=a
 set ruler
 set list
-set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+set listchars=tab:»-,trail:-,eol:⏎,extends:»,precedes:«,nbsp:%
 set wrap
 set number
 set laststatus=2
@@ -162,4 +163,3 @@ noremap <Up> <Nop>
 noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
-
