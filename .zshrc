@@ -106,7 +106,8 @@ setopt transient_rprompt
 export CLICOLOR=true
 export LSCOLORS='exfxcxdxbxGxDxabagacad'
 export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=36;01:cd=33;01:su=31;40;07:sg=36;40;07:tw=32;40;07:ow=33;40;07:'
-export EDITOR=vim
+export EDITOR=code
+export VISUAL="$EDITOR"
 export HISTFILE=~/.zhistory
 export HISTSIZE=1000
 export SAVEHIST=1000000
@@ -142,9 +143,9 @@ alias ls='k -a'
 ## Settings for Hyper
 ################################################################################
 precmd() {
-   pwd=$(pwd)
-   cwd=${pwd##*/}
-   print -Pn "\e]0;$cwd\a"
+    pwd=$(pwd)
+    cwd=${pwd##*/}
+    print -Pn "\e]0;$cwd\a"
 }
 
 #preexec() {
@@ -156,7 +157,7 @@ precmd() {
 ## Screenfetch
 ################################################################################
 
-screenfetch -E
+neofetch
 
 ###-tns-completion-start-###
 if [ -f /Users/nori.k/.tnsrc ]; then 
