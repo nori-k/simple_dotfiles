@@ -7,22 +7,13 @@ export ZPLUG_HOME=/usr/local/opt/zplug
 source $ZPLUG_HOME/init.zsh
 
 ################################################################################
-## anyenv setup command
-################################################################################
-
-#if [ -d $HOME/.anyenv ] ; then
-    export PATH="$HOME/.anyenv/bin:$PATH"
-    eval "$(anyenv init -)"
-#fi
-
-################################################################################
 ## setup starship
 ################################################################################
 
 eval "$(starship init zsh)"
 
 ################################################################################
-## zplug plugin 
+## zplug plugin
 ################################################################################
 
 # initialize zplug
@@ -59,7 +50,12 @@ zplug load --verbose
 ################################################################################
 ## autoload settings
 ################################################################################
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
 
+  autoload -Uz compinit
+  compinit
+fi
 autoload -Uz add-zsh-hook
 autoload -Uz compinit && compinit -u
 autoload -Uz url-quote-magic
@@ -134,34 +130,24 @@ zstyle ':completion:*:options' description 'yes'
 ## Aliases
 ################################################################################
 
-alias k='k -a'
+alias ls='k'
 alias la='k -a'
 alias ll='k -a'
-alias ls='k -a'
-
-################################################################################
-## Settings for Hyper
-################################################################################
-precmd() {
-    pwd=$(pwd)
-    cwd=${pwd##*/}
-    print -Pn "\e]0;$cwd\a"
-}
-
-#preexec() {
-#   if overridden; then return; fi
-#   printf "\033]0;%s\a" "${1%% *} | $cwd"
-#}
-
+alias lsh='k -ta'
+alias bu='brew update && brew upgrade && brew cleanup'
+alias st='speedtest --simple'
+alias sts='speedtest --secure --simple'
+alias dbcon-prd='~/.cloud_sql_proxy -instances=clove-v2-prd:asia-northeast1:database-prd=tcp:13306 -credential_file=~/.clove-v2-prd-d1a20f528c89.json'
+alias powerinfo='system_profiler SPPowerDataType'
 ################################################################################
 ## Screenfetch
 ################################################################################
 
 neofetch
 
-###-tns-completion-start-###
-if [ -f /Users/nori.k/.tnsrc ]; then 
-    source /Users/nori.k/.tnsrc 
-fi
-###-tns-completion-end-###
+################################################################################
+## export path etc...
+################################################################################
 
+. /usr/local/opt/asdf/asdf.sh
+export PATH="/usr/local/sbin:$PATH"
